@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100d0d">
+<meta name="description" content="嗨逗剧社出品｜西部世界人格测试。走进乐馆，看看荒野会把你写成谁。">
+<title>你是「西部世界」里的谁？｜嗨逗剧社</title>
+<style>
+:root{--bg:#100d0d;--panel:#191313;--red:#b6292d;--red2:#e4473f;--cream:#f0e4cf;--muted:#b5a69a;--line:#49302e;--gold:#c4a16a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font-family:"Noto Serif SC","Songti SC","STSong",serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:radial-gradient(#bda58b .6px,transparent .6px);background-size:5px 5px;mix-blend-mode:screen}
+a,button{font:inherit}button{cursor:pointer}
+.wrap{width:min(100% - 36px,860px);margin:auto;position:relative}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);font-family:Arial,"PingFang SC",sans-serif;letter-spacing:.14em;font-size:11px;color:var(--muted)}
+.brand{color:var(--cream);font-weight:700}.brand b{color:var(--red2)}
+.stamp{border:1px solid var(--red);color:var(--red2);padding:7px 10px;transform:rotate(-3deg)}
+.hero{padding:clamp(48px,10vw,100px) 0 44px;position:relative}
+.eyebrow{color:var(--red2);font:700 11px/1.8 Arial,"PingFang SC",sans-serif;letter-spacing:.28em;text-transform:uppercase}
+h1{font-size:clamp(46px,10vw,90px);line-height:1.05;letter-spacing:-.055em;margin:22px 0 20px;font-weight:900}
+h1 span{display:block;color:var(--red2);font-size:.62em;letter-spacing:.02em;margin-top:8px}
+.intro{font-size:clamp(15px,2.5vw,18px);line-height:2;color:#d0c0ad;max-width:570px}
+.hero-mark{position:absolute;right:4%;top:27%;width:clamp(90px,19vw,170px);aspect-ratio:1;border:1px solid #632629;border-radius:50%;display:grid;place-items:center;color:#7c292a;transform:rotate(17deg);font-size:clamp(11px,2vw,16px);letter-spacing:.22em;text-align:center;line-height:2}
+.hero-mark:before,.hero-mark:after{content:"";position:absolute;inset:9px;border:1px solid #632629;border-radius:50%}.hero-mark:after{inset:20px;border-style:dashed}
+.notice{border-left:3px solid var(--red);padding:13px 17px;background:linear-gradient(90deg,#35181955,transparent);font-size:13px;line-height:1.9;color:#c8b6a4;margin:22px 0 34px}
+.btn{border:1px solid var(--red2);background:var(--red);color:#fff4e6;padding:16px 25px;letter-spacing:.12em;font-weight:700;transition:.2s;box-shadow:5px 5px 0 #4d1a1c}
+.btn:hover{background:#d13939;transform:translate(-1px,-1px);box-shadow:7px 7px 0 #4d1a1c}.btn.secondary{background:transparent;box-shadow:none;border-color:#70504a;color:var(--cream)}
+.small{font:11px/1.8 Arial,"PingFang SC",sans-serif;color:var(--muted);letter-spacing:.08em}
+.sectionline{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--muted);font:11px Arial,sans-serif;letter-spacing:.16em}.sectionline:after{content:"";height:1px;background:var(--line);flex:1}
+.quiz{display:none;padding:22px 0 70px}.quiz.active{display:block}
+.progressrow{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font:11px Arial,sans-serif;letter-spacing:.12em;margin:0 0 12px}
+.progress{height:3px;background:#392526;margin-bottom:36px}.progress i{display:block;height:100%;width:0;background:var(--red2);transition:width .3s}
+.qtag{color:var(--red2);font:700 12px Arial,sans-serif;letter-spacing:.2em}
+.question{font-size:clamp(25px,5.4vw,42px);line-height:1.45;margin:14px 0 12px}
+.qdesc{color:var(--muted);font-size:14px;line-height:1.9;margin-bottom:27px}
+.options{display:grid;gap:12px}.option{display:flex;gap:16px;align-items:flex-start;text-align:left;background:#171111;border:1px solid #46302e;color:var(--cream);padding:19px 18px;line-height:1.75;transition:.18s;width:100%}
+.option:hover,.option:focus-visible{border-color:var(--red2);background:#281516;outline:none;transform:translateX(3px)}
+.letter{font:700 12px Arial,sans-serif;color:var(--red2);border:1px solid #793033;min-width:28px;height:28px;display:grid;place-items:center}
+.opttext strong{display:block;font-size:16px;font-weight:600;margin-bottom:3px}.opttext span{font-size:13px;color:#bcae9e}
+.quiznav{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:10px}
+.result{display:none;padding:40px 0 70px}.result.active{display:block}
+.resultcard{border:1px solid #623031;background:linear-gradient(145deg,#211414,#120f0f 65%);padding:clamp(22px,6vw,48px);position:relative;overflow:hidden}
+.resultcard:after{content:"";position:absolute;width:230px;height:230px;border:1px solid #5b292a;border-radius:50%;right:-100px;top:-100px;box-shadow:0 0 0 18px #5b292a12,0 0 0 38px #5b292a0c}
+.result-kicker{font:11px Arial,sans-serif;letter-spacing:.24em;color:var(--red2)}
+.result-title{font-size:clamp(40px,9vw,70px);line-height:1.1;margin:16px 0 8px}
+.actor{color:var(--gold);font-size:15px;letter-spacing:.1em}
+.traits{font-size:clamp(15px,3vw,20px);letter-spacing:.07em;line-height:1.9;margin:26px 0 8px}
+.poem{font-size:clamp(20px,4.5vw,30px);line-height:1.9;color:#f2d9c3;margin:12px 0 24px;white-space:pre-line}
+.result-copy{font-size:15px;line-height:2.1;color:#d0c0ad;max-width:650px}
+.quote{border-left:2px solid var(--red2);padding:10px 0 10px 18px;color:#f0d7c1;font-size:18px;line-height:1.9;margin:25px 0}
+.result-foot{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.9}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.footer{border-top:1px solid var(--line);padding:25px 0 38px;color:#8f7d71;font:11px/2 Arial,"PingFang SC",sans-serif;letter-spacing:.08em;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer b{color:var(--red2)}
+@media(max-width:520px){.hero-mark{right:0;top:15%;opacity:.55}.intro{max-width:82%}.topbar{padding:18px 0}.option{padding:15px 13px}.resultcard{padding:22px 18px}.footer{display:block}.footer div+div{margin-top:6px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar"><div class="brand">嗨逗剧社 <b> / HI-DOU THEATRE</b></div><div class="stamp">仅限今夜有效</div></header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-mark">WELCOME<br>TO THE<br>WEST</div>
+      <div class="eyebrow">A WILD WEST PERSONALITY TEST · HI-DOU</div>
+      <h1>你是「西部世界」<span>里的谁？</span></h1>
+      <p class="intro">荒野没有标准答案，乐馆也不相信自我介绍。<br>有人用枪说话，有人用舞步立法，有人把谎言卖出好价钱——也有人，把一整片夜色写成诗。<br>现在，推开乐馆的门。让你的选择替你开口。</p>
+      <div class="notice">入馆须知：别轻易相信任何一个人。这里发生的一切，都只属于今晚。<br>本测试将为你揭晓一种属于你的西部气质——至于它是不是全部的你，连你自己也未必知道。</div>
+      <button class="btn" id="start">进入乐馆　→</button>
+      <p class="small" style="margin-top:18px">约 2 分钟 · 6 道抉择 · 5 种命运 · 0 个标准答案</p>
+    </section>
+
+    <section class="quiz" id="quiz" aria-live="polite">
+      <div class="sectionline">乐馆档案 / YOUR NIGHT BEGINS</div>
+      <div class="progressrow"><span id="counter">QUESTION 01 / 06</span><span id="pct">17%</span></div>
+      <div class="progress"><i id="bar"></i></div>
+      <div class="qtag" id="qtag">第一道传闻</div>
+      <h2 class="question" id="question"></h2>
+      <div class="qdesc" id="qdesc"></div>
+      <div class="options" id="options"></div>
+      <div class="quiznav"><button class="btn secondary" id="back">← 上一道</button><span class="small">你的选择会留下印记。</span></div>
+    </section>
+
+    <section class="result" id="result" aria-live="polite">
+      <div class="sectionline">档案已解封 / YOUR TRUE WEST</div>
+      <div class="resultcard" id="resultcard"></div>
+      <div class="actions"><button class="btn" id="restart">再测一次 ↻</button><button class="btn secondary" id="share">分享我的命运 ↗</button></div>
+      <p class="small" id="sharehint" style="margin-top:14px"></p>
+    </section>
+  </main>
+  <footer class="footer"><div><b>嗨逗的西部世界</b>　·　嗨逗剧社出品</div><div>THE SALOON IS OPEN. YOUR STORY IS NOT OVER.</div></footer>
+</div>
+<script>
+const questions = [
+ {tag:"第一道传闻",q:"午夜的风把一张悬赏令吹到你脚边。你只看了一眼，先注意到什么？",d:"画像上的人不像你。可赏金是真的。",opts:[
+  ["那双眼睛","一个人是否会开枪，眼神往往先知道。",{cole:3}],
+  ["悬赏金额","命值多少钱？先看看开价，再决定要不要生气。",{peteL:2,peteW:1}],
+  ["落款的名字","比起赏金，我更想知道是谁在写这场戏。",{sam:3}],
+  ["纸张背面的舞会广告","有热闹的地方，就有故事；有故事的地方，就有我。",{bella:3}]
+ ]},
+ {tag:"第二道传闻",q:"荒野里只剩最后一匹马。身后有人追来，你会怎么做？",d:"蹄声越来越近。你还有一次选择的机会。",opts:[
+  ["翻身上马，绝不回头","活下来不是怯懦，是给明天留张牌。",{peteL:3,peteW:1}],
+  ["转身站定，让对方先看清我","我不把后背留给任何人。",{cole:3}],
+  ["朝追兵扬起笑，谈一笔生意","追杀也好，合作也罢，先把价码谈清楚。",{peteL:2,peteW:2}],
+  ["停下来听一听风里的声音","有些路不必急着抵达，有些告别值得慢一点。",{sam:3}]
+ ]},
+ {tag:"第三道传闻",q:"乐馆里有人说了句冒犯你的话。你会如何回应？",d:"贝拉已经放下酒杯，等着看好戏。",opts:[
+  ["一句话还回去，最好更漂亮","我不制造规矩，我只负责修订它。",{bella:3}],
+  ["记住他的脸，留到合适的时候","愤怒会过去，记忆不会。",{cole:2,bella:1}],
+  ["笑着附和，顺便套出他的秘密","让人以为赢了，是最便宜的入场费。",{peteL:2,peteW:2}],
+  ["把这句话记进一首诗里","有时，写下来比争输赢更长久。",{sam:3}]
+ ]},
+ {tag:"第四道传闻",q:"你在吧台捡到一枚筹码。失主就在不远处，却没发现你。",d:"一枚小小的筹码，够买一杯酒，也够试出一个人。",opts:[
+  ["放回去，顺手提醒他小心","我不靠别人的疏忽证明自己。",{cole:2,sam:1}],
+  ["收下。既然命运递过来，就没有不接的道理","规矩是别人写的，机会是自己的。",{peteL:3}],
+  ["还给他，再开个玩笑要一杯酒作谢礼","我从不做亏本买卖，但可以让你觉得占了便宜。",{peteW:3}],
+  ["把筹码推到舞台边，替陌生人买一首歌","有些东西流转起来，才真正有了价值。",{sam:2,bella:1}]
+ ]},
+ {tag:"第五道传闻",q:"午夜舞台只为你亮起一束光。你最想让观众记住什么？",d:"掌声不会永远响着，但某些瞬间会。",opts:[
+  ["我出手时，从不犹豫","漂亮的胜利，不需要解释。",{cole:3}],
+  ["我跳舞时，没人敢眨眼","我不等谁允许我发光。",{bella:3}],
+  ["我总能从坏牌里翻出好结局","运气是天生的，翻盘是练出来的。",{peteL:2,peteW:2}],
+  ["我让一个陌生人，想起了自己的故事","如果有人因此不再孤单，今晚就没白过。",{sam:3}]
+ ]},
+ {tag:"最后一道传闻",q:"钟声将响。你只能带走一样东西，离开这座乐馆。",d:"门外是无边荒野。门内有人叫你的名字。",opts:[
+  ["一把擦得发亮的左轮，和一张旧纸","枪能解决很多问题，却不能告诉我下一步该走向哪里。",{cole:3}],
+  ["一双舞鞋，以及我自己定下的规矩","世界尽管喧哗，我不把人生交给别人安排。",{bella:3}],
+  ["一袋筹码，还有没人看穿的笑","钱会花光，但只要脑子还在，我就能再赢一次。",{peteL:2,peteW:1}],
+  ["一封没寄出的信，和一段旋律","有些话不必抵达某个人，也能陪我走很远。",{sam:3}],
+  ["一张地图，和下一场冒险的地址","我不一定要赢；但我一定要看看下一幕。",{peteW:2,peteL:2}]
+ ]}
+];
+const results = {
+ cole:{name:"枪手 · 柯尔",actor:"汪滋晨 饰",traits:"冰冷。优雅。左轮与记忆同温。",poem:"你把沉默磨成枪口，\\n把旧日折进衣袋。\\n荒野教会你先开枪，\\n岁月却偷偷教你——\\n如何在扣下扳机前，\\n再相信一次温柔。",copy:"你看起来像一扇不会打开的门。做决定时利落，面对危险时冷静，宁愿自己承担后果，也不把命运交给别人。可真正让你难以放下的，从来不是输赢，而是那些没能说出口的事。你记得每一次失去，也记得自己曾经为什么出发。",quote:"“每次醒来，我都比上次少一点愧疚。”",ending:"你不是没有心软过。只是后来，你学会把温柔藏得比枪还深。"},
+ bella:{name:"名伶 · 贝拉",actor:"解明妍 饰",traits:"果敢。锋利。舞步慑人。",poem:"灯光落下来之前，\\n你先替自己划好边界。\\n不求谁来拯救，\\n也不等谁来命名。\\n你只在音乐响起时转身，\\n让整座荒野，学会看你。",copy:"你不擅长委屈自己来换取和平。你能看穿虚伪，也敢把话说到桌面上；你可以热烈，可以尖锐，但绝不把人生交给旁人的规矩。你相信美不是装饰，而是一种力量——尤其当所有人都想让你安静的时候。",quote:"“起舞时，别眨眼。”",ending:"你不需要每个人喜欢你。你只需要不在自己的故事里退场。"},
+ peteL:{name:"逃犯 · 皮特",actor:"刘箫月 饰",traits:"机灵。淘气。赚钱很有一套。",poem:"口袋不必太满，\\n退路一定要有三条。\\n你把危险叫作机会，\\n把窘迫说成玩笑。\\n若荒野真有赢家，\\n那一定是你——\\n把烂牌打成了好笑的故事。",copy:"你脑子转得比风向还快，擅长见招拆招，也从不把自己困在一条路上。你爱热闹、会来事，知道什么时候该认真，什么时候该装傻。别人以为你只是贪玩，其实你早就悄悄算好了下一步。你的生存哲学很简单：先让日子过得漂亮，再说别的。",quote:"“会画，会跳。日子过得比谁都漂亮。”",ending:"你不一定是牌桌上最有钱的人，但很可能是最后一个还笑着的人。"},
+ peteW:{name:"逃犯 · 皮特",actor:"吴敏麟 饰",traits:"风流。淘气。平时很难看出端倪。",poem:"你把真心藏在袖口，\\n把玩笑递到别人手里。\\n谁都以为自己看懂了你，\\n直到你眨眼，转身，\\n留下一阵香气，\\n和一笔算不清的账。",copy:"你身上有一种让人放松警惕的轻巧。你不急着证明什么，也不急着把底牌翻开；一个眼神、一句玩笑，就足够把局面带去别处。你喜欢自由，也懂得人心的缝隙。别急着把你归类——你最擅长的，就是在别人以为故事结束时，轻轻添上一笔。",quote:"“但据说——有妩媚的一面。”",ending:"你从不承认自己难以捉摸。你只说：是他们问得还不够有趣。"},
+ sam:{name:"诗人 · 塞缪尔",actor:"黄婧婧 饰",traits:"浪漫。洒脱。精通琵琶。",poem:"你走过许多荒凉之地，\\n最后把远方调成一根弦。\\n枪会生锈，酒会喝完，\\n故事也会散场。\\n只有一声琵琶，\\n把未曾相识的人，\\n轻轻留在同一个夜晚。",copy:"你不一定最擅长争抢，却很会听见别人没说出口的部分。你相信旅途的意义不只在抵达，也在路上遇见的人、短暂的夜晚，以及那些无法解释却真实发生的感受。你浪漫，但不天真；你洒脱，是因为懂得有些东西无法挽留，所以更愿意好好珍惜。",quote:"“琴声，落入西部的夜。”",ending:"你带不走整座乐馆，但你能把今晚，写进余生的某一段旋律。"}
+};
+let index=0, answers=[], scores={cole:0,bella:0,peteL:0,peteW:0,sam:0};
+const $=id=>document.getElementById(id);
+function show(section){["home","quiz","result"].forEach(id=>$(id).classList.toggle("active",id===section));if(section==="home")$("home").style.display="block";else $("home").style.display="none";window.scrollTo({top:0,behavior:"smooth"});}
+function start(){index=0;answers=[];scores={cole:0,bella:0,peteL:0,peteW:0,sam:0};$("home").style.display="none";$("quiz").classList.add("active");$("result").classList.remove("active");renderQ();}
+function renderQ(){const q=questions[index];$("counter").textContent=`QUESTION ${String(index+1).padStart(2,"0")} / ${String(questions.length).padStart(2,"0")}`;$("pct").textContent=`${Math.round((index+1)/questions.length*100)}%`;$("bar").style.width=`${(index+1)/questions.length*100}%`;$("qtag").textContent=q.tag;$("question").textContent=q.q;$("qdesc").textContent=q.d;$("options").innerHTML="";
+q.opts.forEach((o,i)=>{const b=document.createElement("button");b.className="option";b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span class="opttext"><strong>${o[0]}</strong><span>${o[1]}</span></span>`;b.onclick=()=>choose(i);$("options").appendChild(b)});$("back").style.visibility=index===0?"hidden":"visible";}
+function choose(i){answers[index]=i;if(index<questions.length-1){index++;renderQ()}else finish();}
+function finish(){scores={cole:0,bella:0,peteL:0,peteW:0,sam:0};answers.forEach((a,qi)=>{const weights=questions[qi].opts[a][2];Object.entries(weights).forEach(([k,v])=>scores[k]+=v)});let max=Math.max(...Object.values(scores));let ties=Object.keys(scores).filter(k=>scores[k]===max);let key=ties[Math.floor(Math.random()*ties.length)];const r=results[key];$("resultcard").innerHTML=`<div class="result-kicker">HI-DOU THEATRE · WESTERN CHARACTER FILE</div><div class="result-title">${r.name}</div><div class="actor">${r.actor}</div><div class="traits">${r.traits}</div><div class="poem">${r.poem.replace(/\\n/g,"<br>")}</div><div class="result-copy">${r.copy}</div><div class="quote">${r.quote}</div><div class="result-copy">${r.ending}</div><div class="result-foot">你的命运由今晚的选择拼成，但它不是判决书。<br>欢迎来到 <b>嗨逗的西部世界</b>。乐馆的灯不会为任何人久留——除非你愿意再来一次。</div>`;$("quiz").classList.remove("active");$("result").classList.add("active");$("sharehint").textContent="";window.scrollTo({top:0,behavior:"smooth"});window.currentResult=r;}
+$("start").onclick=start;$("restart").onclick=()=>{ $("home").style.display="block";$("quiz").classList.remove("active");$("result").classList.remove("active");window.scrollTo({top:0,behavior:"smooth"})};$("back").onclick=()=>{if(index>0){index--;renderQ()}};$("share").onclick=async()=>{const r=window.currentResult;const text=`我测出了「${r.name}」｜${r.actor}\n${r.traits}\n${r.quote}\n嗨逗的西部世界 · 嗨逗剧社`;try{if(navigator.share){await navigator.share({title:"你是西部世界里的谁？",text})}else if(navigator.clipboard){await navigator.clipboard.writeText(text);$("sharehint").textContent="结果文案已复制，可以粘贴分享给朋友。"}else{$("sharehint").textContent=text}}catch(e){}};
+</script>
+</body>
+</html>
